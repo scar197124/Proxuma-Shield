@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proxuma Shield L9000</title>
+<style>
+  :root {
+    --brand-dark: #0e1420;
+    --bg-default: #f3f4f6;
+    --bg-neon: #0033cc;
+    --bg-solar: #ffdd00;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--bg-default);
+    color: #111827;
+    text-align: center;
+    transition: background 0.3s ease;
+  }
+  header {
+    background: var(--brand-dark);
+    color: #ffffff;
+    padding: 22px 12px 18px;
+    border-bottom: 3px solid #000;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.45);
+  }
+  .logo-shield {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 8px;
+    border-radius: 18px;
+    border: 3px solid #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: 0.03em;
+  }
+  .logo-shield::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    left: -7px;
+    right: -7px;
+    bottom: -7px;
+    border-radius: 22px;
+    border: 3px solid rgba(255,255,255,0.5);
+  }
+  .logo-shield span {
+    position: relative;
+    display: inline-block;
+    transform: translateY(-1px);
+  }
+  .app-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.20em;
+    margin-bottom: 4px;
+  }
+  .tagline {
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    opacity: 0.85;
+  }
+  .theme-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 12px 4px;
+  }
+  .theme-btn {
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 2px solid var(--brand-dark);
+    background: #ffffff;
+    color: var(--brand-dark);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+  }
+  .theme-btn:hover { background: #e5e7eb; }
+  .grid-wrap {
+    max-width: 760px;
+    margin: 8px auto 0;
+    padding: 0 12px 8px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 12px;
+    margin: 12px auto 0;
+  }
+  .grid-btn {
+    padding: 14px 10px;
+    background: var(--brand-dark);
+    color: #ffffff;
+    border-radius: 0;
+    border: 2px solid #000000;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+  }
+  .grid-btn:hover { background: #111827; }
+  .workspace {
+    max-width: 760px;
+    margin: 10px auto 26px;
+    padding: 0 12px;
+  }
+  .panel {
+    display: none;
+    text-align: left;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 2px solid #000;
+    padding: 20px 18px 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  }
+  .panel h2 {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+    color: var(--brand-dark);
+    letter-spacing: 0.04em;
+  }
+  .panel p.desc {
+    margin: 4px 0 10px;
+    font-size: 0.9rem;
+    color: #4b5563;
+  }
+  .field {
+    width: 100%;
+    padding: 10px 10px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 2px solid #000;
+    font-size: 0.95rem;
+  }
+  textarea.field {
+    resize: vertical;
+    min-height: 80px;
+  }
+  .action-btn {
+    margin-top: 12px;
+    width: 100%;
+    padding: 11px;
+    border-radius: 10px;
+    border: 2px solid #000;
+    background: var(--brand-dark);
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+  }
+  .action-btn:hover { background: #111827; }
+  .result-box {
+    margin-top: 14px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #000;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    background: #f9fafb;
+  }
+  .risk-label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .risk-low  { background: #d1ffd6; }
+  .risk-mid  { background: #fff6c7; }
+  .risk-high { background: #ffd6d6; }
+
+  .sub-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .sub-box {
+    font-size: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #000;
+    padding: 8px;
+    background: #f3f4f6;
+  }
+  .sub-box h3 {
+    margin: 0 0 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .pill {
+    border-radius: 999px;
+    border: 1px solid #000;
+    padding: 2px 7px;
+    font-size: 0.75rem;
+    background: #e5e7eb;
+  }
+  .assistant-box {
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px dashed #000;
+    background: #f3f4ff;
+    font-size: 0.85rem;
+  }
+  .assistant-box h3 {
+    margin: 0 0 6px;
+    font-size: 0.9rem;
+  }
+  .assistant-input {
+    width: 100%;
+    border-radius: 999px;
+    border: 1px solid #000;
+    padding: 7px 9px;
+    font-size: 0.85rem;
+    margin-top: 4px;
+  }
+  .assistant-answer {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    color: #374151;
+  }
+  .history-box {
+    margin-top: 12px;
+    padding: 9px;
+    border-radius: 10px;
+    border: 2px dotted #000;
+    background: #fefce8;
+    font-size: 0.8rem;
+  }
+  .history-title {
+    font-weight: 700;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+  }
+  .history-item {
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .preview-box {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px dashed #000;
+    font-size: 0.82rem;
+    background: #eff6ff;
+  }
+  .preview-url {
+    font-family: monospace;
+    font-size: 0.78rem;
+    word-break: break-all;
+  }
+  footer {
+    border-top: 2px solid #000;
+    padding: 14px 8px 18px;
+    background: #ffffff;
+  }
+  footer .top {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.20em;
+    color: --brand-dark;
+  }
+  footer .bottom {
+    margin-top: 4px;
+    font-size: 0.85rem;
+    color: #4b5563;
+    letter-spacing: 0.08em;
+  }
+  @media (max-width: 520px) {
+    .grid {
+      grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+    .grid-btn {
+      font-size: 0.85rem;
+      padding: 12px 6px;
+    }
+    .sub-grid {
+      grid-template-columns: minmax(0,1fr);
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-shield">
+    <span>P</span>
+  </div>
+  <div class="app-name">PROXUMA SHIELD</div>
+  <div class="tagline">SECURE EVERY CLICK</div>
+</header>
+
+<div class="theme-row">
+  <button class="theme-btn" onclick="setTheme('default')">Default</button>
+  <button class="theme-btn" onclick="setTheme('neon')">Neon</button>
+  <button class="theme-btn" onclick="setTheme('solar')">Solar</button>
+</div>
+
+<div class="grid-wrap">
+  <div class="grid">
+    <button class="grid-btn" onclick="showPanel('url')">URL Analyzer</button>
+    <button class="grid-btn" onclick="showPanel('qr')">QR Scanner</button>
+    <button class="grid-btn" onclick="showPanel('msg')">Email / Message</button>
+    <button class="grid-btn" onclick="showPanel('phone')">Caller Check</button>
+  </div>
+</div>
+
+<div class="workspace">
+
+  <div id="panel-url" class="panel">
+    <h2>URL Analyzer</h2>
+    <p class="desc">
+      Enter a link you received by SMS, email, QR code, or social media. Proxuma Shield uses local, pattern-based checks to keep the signal honest and calm.
+    </p>
+    <input id="urlInput" class="field" placeholder="https://example.com/login">
+    <button class="action-btn" onclick="scanURL()">Analyze URL</button>
+
+    <div id="urlResult" class="result-box risk-low">
+      <span class="risk-label">Awaiting input</span>
+      Paste a link above and tap <strong>Analyze URL</strong> to see Proxuma Shield’s explanation.
+    </div>
+
+    <div class="sub-grid">
+      <div class="sub-box">
+        <h3>Pattern Tags</h3>
+        <div id="urlTags" class="pill-row">
+          <!-- tags go here -->
+        </div>
+      </div>
+      <div class="sub-box">
+        <h3>Reputation Snapshot</h3>
+        <div id="urlReputation" style="font-size:0.78rem;">
+          No URL analyzed yet.
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-box" id="urlPreviewBox" style="display:none;">
+      <strong>Safe-open preview</strong><br>
+      Check this address carefully before opening in a new tab:
+      <div class="preview-url" id="urlPreviewText"></div>
+      <div style="margin-top:6px;font-size:0.78rem;">
+        Proxuma does not auto-open links. Copy this address or tap it on mobile if you trust it.
+      </div>
+    </div>
+
+    <div class="assistant-box">
+      <h3>Ask Proxuma about this result</h3>
+      <input id="assistantQuestion" class="assistant-input" placeholder="e.g., Why did you mark this as caution?" />
+<button class="action-btn" style="margin-top:6px;" onclick="answerAssistant()">Ask</button>
+      <div class="assistant-answer" id="assistantAnswer">
+        After you analyze a URL, you can ask simple questions about the result here.
+      </div>
+    </div>
+
+    <div class="history-box">
+      <div class="history-title">Recent URL checks (local only)</div>
+      <div id="urlHistory">
+        No history yet. Your last few scans will appear here.
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-qr" class="panel">
+    <h2>QR Code Scanner</h2>
+    <p class="desc">
+      Upload a photo of a QR code, or use the live camera preview. To fully decode QR content, connect this UI to a client-side QR library on your hosted site.
+    </p>
+    <input id="qrFile" class="field" type="file" accept="image/*">
+    <button class="action-btn" onclick="scanQR()">Analyze QR Image</button>
+
+    <button class="action-btn" style="margin-top:8px;background:#111827;" onclick="startQRPreview()">
+      Start Live Camera Preview (Beta)
+    </button>
+    <div id="qrCameraWrap" style="margin-top:10px; display:none;">
+      <video id="qrVideo" autoplay playsinline style="width:100%;border-radius:10px;border:2px solid #000;"></video>
+      <p style="font-size:0.8rem;color:#4b5563;margin-top:4px;">
+        Live preview is running. To actually decode the QR, connect this stream to a JS QR decoder (e.g., jsQR) in your GitHub build.
+      </p>
+    </div>
+
+    <div id="qrResult" class="result-box risk-mid">
+      <span class="risk-label">QR analysis note</span>
+      This build confirms that a QR image was selected or camera preview started. To fully decode and follow QR links, connect this UI to a QR decoding library on your GitHub Pages deployment.
+      <br><br><em>Tip:</em> If the QR code opens a link, you can paste that link into the URL Analyzer for a deeper risk check.
+      <br><br><em>Note:</em> QR codes on product packaging (like drinks or snacks) often use tracking redirects. That looks technical but is usually marketing, not malware.
+    </div>
+  </div>
+
+  <div id="panel-msg" class="panel">
+    <h2>Email / Message Analyzer</h2>
+    <p class="desc">Paste the content of a suspicious email, SMS, or chat. Proxuma Shield checks for classic scam and phishing patterns.</p>
+    <textarea id="msgInput" class="field" placeholder="Paste the full message here..."></textarea>
+    <button class="action-btn" onclick="analyzeMessage()">Analyze Message</button>
+    <div id="msgResult" class="result-box risk-low">
+      <span class="risk-label">Awaiting message</span>
+      Paste a full message above to scan for urgency tricks, threats, “you won” language, strange links, or requests for codes and passwords.
+    </div>
+
+    <div class="sub-box" style="margin-top:10px;">
+      <h3>Detected Themes</h3>
+      <div id="msgTags" class="pill-row"></div>
+    </div>
+  </div>
+
+  <div id="panel-phone" class="panel">
+    <h2>Caller Check</h2>
+    <p class="desc">Enter a phone number that called or messaged you. Proxuma Shield checks the pattern for simple high-risk signals.</p>
+    <input id="phoneInput" class="field" placeholder="+14165551234">
+    <button class="action-btn" onclick="checkPhone()">Check Number</button>
+    <div id="phoneResult" class="result-box risk-low">
+      <span class="risk-label">Awaiting number</span>
+      Type a phone number and tap <strong>Check Number</strong> to run a quick format-based risk assessment.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="top">PROXUMA SHIELD</div>
+  <div class="bottom">Secure Every Click</div>
+</footer>
+
+<script>
+function setTheme(mode){
+  var root = document.documentElement;
+  var style = getComputedStyle(root);
+  if(mode === 'default'){
+    document.body.style.background = style.getPropertyValue('--bg-default');
+  } else if(mode === 'neon'){
+    document.body.style.background = style.getPropertyValue('--bg-neon');
+  } else if(mode === 'solar'){
+    document.body.style.background = style.getPropertyValue('--bg-solar');
+  }
+}
+
+function showPanel(kind){
+  var panels = document.querySelectorAll('.panel');
+  panels.forEach(function(p){ p.style.display = 'none'; });
+  var el = document.getElementById('panel-' + kind);
+  if(el){ el.style.display = 'block'; }
+}
+
+function saveUrlHistory(entry){
+  try {
+    var history = JSON.parse(localStorage.getItem('proxumaUrlHistory') || '[]');
+    history.unshift(entry);
+    if(history.length > 7) history = history.slice(0,7);
+    localStorage.setItem('proxumaUrlHistory', JSON.stringify(history));
+  } catch(e){}
+}
+
+function renderUrlHistory(){
+  var box = document.getElementById('urlHistory');
+  var history;
+  try {
+    history = JSON.parse(localStorage.getItem('proxumaUrlHistory') || '[]');
+  } catch(e){
+    history = [];
+  }
+  if(!history.length){
+    box.textContent = 'No history yet. Your last few scans will appear here.';
+    return;
+  }
+  box.innerHTML = '';
+  history.forEach(function(h){
+    var div = document.createElement('div');
+    div.className = 'history-item';
+    div.textContent = h.score + '% · ' + h.band + ' · ' + h.url;
+    box.appendChild(div);
+  });
+}
+
+// ---------------- URL ANALYZER ----------------
+
+var lastUrlResult = null;
+
+function scanURL(){
+  var inputEl = document.getElementById('urlInput');
+  var input = inputEl.value.trim();
+  var box = document.getElementById('urlResult');
+  var tagsEl = document.getElementById('urlTags');
+  var repEl = document.getElementById('urlReputation');
+  var previewBox = document.getElementById('urlPreviewBox');
+  var previewText = document.getElementById('urlPreviewText');
+
+  if(!input){
+    box.className = 'result-box risk-mid';
+    box.innerHTML = '<span class="risk-label">⚠ No URL detected</span>Please paste a full link (starting with http or https) to analyze.';
+    tagsEl.innerHTML = '';
+    repEl.textContent = 'No URL analyzed yet.';
+    previewBox.style.display = 'none';
+    lastUrlResult = null;
+    return;
+  }
+
+  var parsed = null;
+  var working = input;
+  if(!/^https?:\/\//i.test(working)){
+    working = 'https://' + working;
+  }
+  try {
+    parsed = new URL(working);
+  } catch(e){
+    box.className = 'result-box risk-mid';
+    box.innerHTML = '<span class="risk-label">⚠ Not a valid URL</span>This does not look like a standard web address. Please check for typos and try again.';
+    tagsEl.innerHTML = '';
+    repEl.textContent = 'No URL analyzed yet.';
+    previewBox.style.display = 'none';
+    lastUrlResult = null;
+    return;
+  }
+
+  var href = parsed.href;
+  var lower = href.toLowerCase();
+  var hostname = parsed.hostname.toLowerCase();
+  var path = parsed.pathname || '/';
+  var query = parsed.search || '';
+  var fullForScan = (path + ' ' + query).toLowerCase();
+
+  var hostParts = hostname.split('.');
+  var domain = hostParts.slice(-2).join('.');
+  var tld = hostParts[hostParts.length - 1] || '';
+
+  var score = 0;
+  var reasons = [];
+  var tags = [];
+
+  if(parsed.protocol === 'http:'){
+    score += 2;
+    reasons.push('Uses http instead of https (no encryption).');
+    tags.push('No HTTPS');
+  }
+
+  if(href.length > 140){
+    score += 1;
+    reasons.push('URL is quite long, which can help hide the real destination.');
+    tags.push('Long URL');
+  }
+
+  if(lower.indexOf('@') !== -1){
+    score += 2;
+    reasons.push('Contains an @ symbol, which can hide the real destination in some browsers.');
+    tags.push('@ in URL');
+  }
+
+  if(hostParts.length > 4){
+    score += 2;
+    reasons.push('Includes many subdomains, sometimes used to imitate real brands.');
+    tags.push('Many subdomains');
+  }
+
+  var sketchyTlds = ['zip','xyz','top','click','link','ru','cn'];
+  if(sketchyTlds.indexOf(tld) !== -1){
+    score += 2;
+    reasons.push('Domain ending is sometimes abused in scams.');
+    tags.push('Uncommon TLD');
+  }
+
+  var lowerPath = path.toLowerCase();
+  var downloadExts = ['.exe','.apk','.msi','.bat','.cmd','.ps1','.scr','.jar','.pkg','.dmg','.zip','.rar','.7z'];
+  if(downloadExts.some(function(ext){ return lowerPath.endsWith(ext); })){
+    score += 4;
+    reasons.push('Looks like a direct file download, which can be risky if unexpected.');
+    tags.push('File download');
+  }
+
+  var credentialHints = ['login','signin','password','passcode','reset','wallet','seed','account'];
+  if(credentialHints.some(function(h){ return fullForScan.indexOf(h) !== -1; })){
+    score += 2;
+    reasons.push('Contains login or account-related wording.');
+    tags.push('Login-related');
+  }
+
+  var financeHints = ['bank','invoice','billing','payment','pay','transfer'];
+  if(financeHints.some(function(h){ return fullForScan.indexOf(h) !== -1; })){
+    score += 2;
+    reasons.push('Mentions payment or financial terms.');
+    tags.push('Finance-related');
+  }
+
+  var trustedBrands = [
+    'google.com','apple.com','microsoft.com','amazon.com',
+    'heineken.com','budweiser.com','ab-inbev.com',
+    'coca-cola.com','pepsi.com','nike.com','adidas.com'
+  ];
+
+  var marketingDomains = [
+    'aug.me','bit.ly','tinyurl.com','t.co','lnkd.in'
+  ];
+
+  var isTrustedBrand = trustedBrands.indexOf(domain) !== -1;
+  var isMarketing = marketingDomains.indexOf(domain) !== -1;
+
+  if(isTrustedBrand){
+    score = Math.max(0, score - 2);
+    reasons.push('Domain matches a well-known brand (trusted context).');
+    tags.push('Trusted brand');
+  }
+
+  if(isMarketing){
+    reasons.push('Appears to be a marketing or short-link redirect, common on product packaging and ads.');
+    tags.push('Marketing redirect');
+    if(score < 4){
+      score = 3;
+    }
+  }
+
+  if(isMarketing && !downloadExts.some(function(ext){ return lowerPath.endsWith(ext); })){
+    reasons.push('No direct file download detected; likely a promo, info, or tracking link.');
+  }
+
+  if(score < 0) score = 0;
+
+  var band = 'Low';
+  var cls = 'risk-low';
+  var label = '🟢 LOW RISK PATTERN';
+  var textMain = 'No strong phishing or malware patterns detected. Still stay alert, especially if this link arrived in an unexpected message.';
+
+  if(score >= 8){
+    band = 'High';
+    cls = 'risk-high';
+    label = '🔴 HIGH RISK PATTERN';
+    textMain = 'This link matches several risky patterns. Avoid entering passwords or banking details here; visit the site by typing its address manually if you are unsure.';
+  } else if(score >= 4){
+    band = 'Caution';
+    cls = 'risk-mid';
+    label = '🟡 CAUTION – CHECK TWICE';
+    textMain = 'This URL shows a few warning signs. Open it only if you trust the source, and double-check the address bar before logging in or making payments.';
+  }
+
+  var detail;
+  if(reasons.length){
+    detail = '<br><br><strong>Why Proxuma scored it this way:</strong><ul><li>' + reasons.join('</li><li>') + '</li></ul>';
+  } else {
+    detail = '<br><br><strong>Why:</strong> No major risk patterns were detected in this URL.';
+  }
+
+  box.className = 'result-box ' + cls;
+  box.innerHTML = '<span class="risk-label">' + label + '</span>' + textMain + detail;
+
+  tagsEl.innerHTML = '';
+  if(tags.length){
+    tags.forEach(function(t){
+      var span = document.createElement('span');
+      span.className = 'pill';
+      span.textContent = t;
+      tagsEl.appendChild(span);
+    });
+  } else {
+    tagsEl.textContent = 'No specific patterns detected.';
+  }
+
+  var repText = '';
+  repText += '<strong>Hostname:</strong> ' + hostname + '<br>';
+  repText += '<strong>Domain:</strong> ' + domain + '<br>';
+  repText += '<strong>TLD:</strong> .' + tld + '<br>';
+  repText += '<strong>Brand match:</strong> ' + (isTrustedBrand ? 'Known brand' : 'No known brand match') + '<br>';
+  repText += '<strong>Shortener / marketing:</strong> ' + (isMarketing ? 'Yes (common for QR and ads)' : 'No');
+  repEl.innerHTML = repText;
+
+  previewBox.style.display = 'block';
+  previewText.textContent = href;
+
+  lastUrlResult = {
+    url: href,
+    score: score,
+    band: band,
+    reasons: reasons,
+    tags: tags
+  };
+  saveUrlHistory(lastUrlResult);
+  renderUrlHistory();
+}
+
+// ---------------- Assistant (local-only logic over last URL result) ----------------
+
+function answerAssistant(){
+  var q = document.getElementById('assistantQuestion').value.trim().toLowerCase();
+  var out = document.getElementById('assistantAnswer');
+
+  if(!lastUrlResult){
+    out.textContent = 'Analyze a URL first, then ask a question about that result.';
+    return;
+  }
+  if(!q){
+    out.textContent = 'Type a short question, like “Why is this caution?” or “Is this safe to open?”.';
+    return;
+  }
+
+  var r = lastUrlResult;
+  var parts = [];
+
+  if(q.indexOf('why') !== -1){
+    if(r.reasons && r.reasons.length){
+      parts.push('Proxuma marked this as ' + r.band + ' mainly because:');
+      r.reasons.forEach(function(reason){
+        parts.push('- ' + reason);
+      });
+    } else {
+      parts.push('There were no major risk patterns detected. The score stayed low.');
+    }
+  }
+
+  if(q.indexOf('safe') !== -1 || q.indexOf('open') !== -1){
+    if(r.band === 'Low'){
+      parts.push('This looks low risk from a pattern point of view. It is likely safe to open if you trust who sent it and it matches what you expected.');
+    } else if(r.band === 'Caution'){
+      parts.push('This sits in the caution band. You can open it if you trust the source, but avoid logging in or paying until you are sure the address is correct.');
+    } else {
+      parts.push('This sits in the high-risk band. It is better not to open this link at all, especially not for banking or passwords.');
+    }
+  }
+
+  if(!parts.length){
+    parts.push('This is a local, pattern-only assistant. I can explain the score, level (Low / Caution / High), and reasons, but I cannot see anything beyond the text of the link.');
+  }
+
+  out.textContent = parts.join('\n');
+}
+
+// ---------------- QR & Camera Preview ----------------
+
+var qrStream = null;
+
+function scanQR(){
+  var file = document.getElementById('qrFile').files[0];
+  var box = document.getElementById('qrResult');
+  if(!file){
+    box.className = 'result-box risk-mid';
+    box.innerHTML = '<span class="risk-label">ℹ No image selected</span>Please choose a photo containing a QR code from your device.';
+    return;
+  }
+  box.className = 'result-box risk-mid';
+  box.innerHTML =
+    '<span class="risk-label">ℹ QR image loaded</span>' +
+    'This build confirms that a QR image was selected. To decode and open the QR content, connect this interface to a QR decoding library on your hosted site.' +
+    '<br><br><em>Note:</em> QR codes on bottles, cans, and packaging often go through marketing redirects. That is normal for analytics and promos.' +
+    '<br><br><em>Tip:</em> If the QR leads to a web address, copy that address into the URL Analyzer for a deeper risk check.';
+}
+
+function startQRPreview(){
+  var wrap = document.getElementById('qrCameraWrap');
+  var video = document.getElementById('qrVideo');
+  wrap.style.display = 'block';
+
+  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+      .then(function(stream){
+        qrStream = stream;
+        video.srcObject = stream;
+      })
+      .catch(function(err){
+        wrap.style.display = 'none';
+        alert('Camera access was blocked or not available.');
+      });
+  } else {
+    wrap.style.display = 'none';
+    alert('Camera API not supported in this browser.');
+  }
+}
+
+// ---------------- MESSAGE ANALYZER ----------------
+
+function analyzeMessage(){
+  var text = document.getElementById('msgInput').value.trim();
+  var box = document.getElementById('msgResult');
+  var tagsEl = document.getElementById('msgTags');
+
+  if(!text){
+    box.className = 'result-box risk-mid';
+    box.innerHTML = '<span class="risk-label">⚠ No message detected</span>Paste the full message text to analyze. Longer context produces a better assessment.';
+    tagsEl.innerHTML = '';
+    return;
+  }
+
+  var lower = text.toLowerCase();
+  var score = 0;
+  var reasons = [];
+  var themes = [];
+
+  var urgent = ['urgent','immediately','right away','within 24 hours','final notice','last warning'];
+  urgent.forEach(function(p){
+    if(lower.indexOf(p) !== -1){ score += 2; reasons.push('Uses urgent pressure language ("' + p + '").'); if(themes.indexOf('Urgency / pressure') === -1) themes.push('Urgency / pressure'); }
+  });
+
+  var threats = ['your account will be closed','account suspended','will be deactivated','legal action','lawsuit','police report'];
+  threats.forEach(function(p){
+    if(lower.indexOf(p) !== -1){ score += 2; reasons.push('Contains threat / fear language ("' + p + '").'); if(themes.indexOf('Threat / fear tactic') === -1) themes.push('Threat / fear tactic'); }
+  });
+
+  var rewards = ['you have won','winner','prize','jackpot','lottery','claim your reward','claim your prize'];
+  rewards.forEach(function(p){
+    if(lower.indexOf(p) !== -1){ score += 2; reasons.push('Mentions prizes or winnings ("' + p + '").'); if(themes.indexOf('Prize / reward lure') === -1) themes.push('Prize / reward lure'); }
+  });
+
+  var banking = ['verify your account','update your account','unusual activity','unauthorized','security alert','password reset','confirm your identity','wire transfer','gift card','bitcoin','crypto','western union','e-transfer','etransfer','interac'];
+  banking.forEach(function(p){
+    if(lower.indexOf(p) !== -1){ score += 2; reasons.push('Uses banking or payment-related language ("' + p + '").'); if(themes.indexOf('Financial / banking') === -1) themes.push('Financial / banking'); }
+  });
+
+  var secrecy = ['do not tell anyone','do not share this','keep this confidential','just between us'];
+  secrecy.forEach(function(p){
+    if(lower.indexOf(p) !== -1){ score += 2; reasons.push('Asks for secrecy or isolation ("' + p + '").'); if(themes.indexOf('Secrecy / isolation') === -1) themes.push('Secrecy / isolation'); }
+  });
+
+  if(lower.indexOf('http://') !== -1 || lower.indexOf('https://') !== -1 || lower.indexOf('www.') !== -1){
+    score += 2;
+    reasons.push('Contains link(s); links inside messages are a common phishing vector.');
+    if(themes.indexOf('Links included') === -1) themes.push('Links included');
+  }
+
+  var codePhrases = ['one-time code','one time code','otp','verification code','security code','login code','password','login details','bank account'];
+  codePhrases.forEach(function(p){
+    if(lower.indexOf(p) !== -1){ score += 2; reasons.push('Asks for codes, passwords or sensitive details ("' + p + '").'); if(themes.indexOf('Codes / credentials') === -1) themes.push('Codes / credentials'); }
+  });
+
+  if(text.indexOf('$') !== -1 || text.indexOf('€') !== -1 || text.indexOf('£') !== -1){
+    score += 1;
+    reasons.push('Mentions specific money or currency amounts.');
+    if(themes.indexOf('Money mentioned') === -1) themes.push('Money mentioned');
+  }
+
+  var cls = 'risk-low';
+  var label = '🟢 LOW RISK PATTERN';
+  var textMain = 'This message does not strongly match common scam or phishing patterns. Still, be cautious with unexpected requests or links.';
+
+  if(score >= 10){
+    cls = 'risk-high';
+    label = '🔴 HIGH RISK MESSAGE';
+    textMain = 'This matches several common scam patterns. Do not click links, do not reply, and do not send codes or money in response to this message.';
+  } else if(score >= 5){
+    cls = 'risk-mid';
+    label = '🟡 POTENTIALLY SUSPICIOUS MESSAGE';
+    textMain = 'This message shows multiple warning signs. Verify the request using official channels (bank phone number, website, or in-person visit) before taking any action.';
+  }
+
+  var detail;
+  if(reasons.length){
+    detail = '<br><br><strong>Why Proxuma flagged this:</strong><ul><li>' + reasons.join('</li><li>') + '</li></ul>';
+  } else {
+    detail = '<br><br><strong>Why:</strong> No strong scam keywords or patterns were detected in this text.';
+  }
+
+  box.className = 'result-box ' + cls;
+  box.innerHTML = '<span class="risk-label">' + label + '</span>' + textMain + detail +
+    '<br><br><em>Tip:</em> If this message includes a link, paste that link into the URL Analyzer for an additional check.';
+
+  tagsEl.innerHTML = '';
+  if(themes.length){
+    themes.forEach(function(t){
+      var span = document.createElement('span');
+      span.className = 'pill';
+      span.textContent = t;
+      tagsEl.appendChild(span);
+    });
+  } else {
+    tagsEl.textContent = 'No strong scam themes detected.';
+  }
+}
+
+// ---------------- CALLER CHECK ----------------
+
+function checkPhone(){
+  var raw = document.getElementById('phoneInput').value.trim();
+  var box = document.getElementById('phoneResult');
+
+  if(!raw){
+    box.className = 'result-box risk-mid';
+    box.innerHTML = '<span class="risk-label">⚠ No number detected</span>Enter the full phone number that called or messaged you to analyze its pattern.';
+    return;
+  }
+
+  var digitsOnly = raw.replace(/[^0-9]/g,'');
+  var normalized = raw.replace(/[^+0-9]/g,'');
+
+  var score = 0;
+  var reasons = [];
+
+  if(digitsOnly.length < 7){
+    score += 3;
+    reasons.push('Number is unusually short for a valid phone number.');
+  }
+  if(digitsOnly.length > 15){
+    score += 3;
+    reasons.push('Number is unusually long for a typical phone number.');
+  }
+
+  if(normalized.indexOf('+233') === 0 || normalized.indexOf('+234') === 0 ||
+     normalized.indexOf('+255') === 0 || normalized.indexOf('+375') === 0){
+    score += 4;
+    reasons.push('Matches an international calling prefix sometimes seen in scam campaigns.');
+  }
+
+  var n = digitsOnly;
+  if(n.length >= 10){
+    if(n.length === 11 && n.charAt(0) === '1'){
+      n = n.substring(1);
+    }
+    var area = n.substring(0,3);
+    var tolls = ['800','888','877','866','855','844','833','822'];
+    if(tolls.indexOf(area) !== -1){
+      score += 2;
+      reasons.push('Looks like a toll-free pattern. Some scam calls spoof toll-free numbers to appear legitimate.');
+    }
+  }
+
+  if(digitsOnly.length >= 4){
+    var last4 = digitsOnly.slice(-4);
+    if(last4 === '0000' || last4 === '1111' || last4 === '2222' || last4 === '3333' ||
+       last4 === '4444' || last4 === '5555' || last4 === '6666' || last4 === '7777' ||
+       last4 === '8888' || last4 === '9999'){
+      score += 2;
+      reasons.push('Ends with repeated digits (' + last4 + '), which can appear in spoofed numbers.');
+    }
+    if(last4 === '1234' || last4 === '2345' || last4 === '6789'){
+      score += 2;
+      reasons.push('Ends with a simple sequence (' + last4 + '), sometimes used to make scam numbers memorable.');
+    }
+  }
+
+  if(digitsOnly.length === 10){
+    var first = digitsOnly.substring(0,1);
+    if(first === '0' || first === '1'){
+      score += 2;
+      reasons.push('Starts with ' + first + ', which is uncommon for many numbering plans.');
+    }
+  }
+
+  var cls = 'risk-low';
+  var label = '🟢 LOW RISK PATTERN';
+  var textMain = 'This number format does not strongly match simple scam patterns. Still, be cautious with unexpected calls.';
+
+  if(score >= 8){
+    cls = 'risk-high';
+    label = '🔴 HIGH RISK CALLER PATTERN';
+    textMain = 'This number matches several patterns seen in scam or fraudulent calls. Avoid sharing personal or banking details and consider blocking it.';
+  } else if(score >= 4){
+    cls = 'risk-mid';
+    label = '🟡 SUSPICIOUS NUMBER PATTERN';
+    textMain = 'This number shows some unusual traits. If someone claims to be from a bank, government, or service, hang up and call back using an official number you trust.';
+  }
+
+  var detail;
+  if(reasons.length){
+    detail = '<br><br><strong>Why Proxuma flagged this number:</strong><ul><li>' + reasons.join('</li><li>') + '</li></ul>';
+  } else {
+    detail = '<br><br><strong>Why:</strong> The format looks typical and does not match simple high-risk patterns.';
+  }
+
+  box.className = 'result-box ' + cls;
+  box.innerHTML = '<span class="risk-label">' + label + '</span>' + textMain + detail +
+    '<br><br><em>Tip:</em> If this number also sent an SMS with a link, paste that link into the URL Analyzer for deeper checking.';
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  showPanel('url');
+  renderUrlHistory();
+  document.getElementById('assistantQuestion').addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      answerAssistant();
+    }
+  });
+});
+</script>
+
+</body>
+</html>
