@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Proxuma Shield — Home</title>
+<title>Proxuma Shield — About</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 
@@ -498,8 +498,8 @@
   <div class="header-left">
     <div class="logo">PROXUMA SHIELD</div>
     <nav class="nav-links">
-      <a href="index.html" class="nav-link nav-active">Home</a>
-      <a href="about.html" class="nav-link">About</a>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link nav-active">About</a>
       <a href="scanner.html" class="nav-link">Scanner</a>
     </nav>
   </div>
@@ -517,35 +517,48 @@
 <div class="wrapper">
   <div class="stacked">
     <section class="section">
-      <h2>Welcome to Proxuma Shield</h2>
+      <h2>About Proxuma Shield</h2>
       <p class="desc">
-        Proxuma Shield is a local-only link and HTML inspection tool. It runs entirely in your browser,
-        using the RazorPrime v1 heuristic engine to highlight risky patterns before you trust a link.
+        Proxuma Shield is an experimental security companion designed to help you inspect links and HTML
+        before you trust them. It does not use cloud services or send data anywhere; everything runs locally
+        inside your browser.
       </p>
 
-      <div class="meta-box">
-        <div class="meta-label">Mode</div>
-        <div class="meta-value">Offline · Local-only · No external requests</div>
-      </div>
+      <h3 style="margin-top:12px;">What the engine looks at</h3>
+      <ul class="meta-list">
+        <li>URL structure, protocol, length, subdomains, and suspicious TLDs</li>
+        <li>Brand-like and leet-style hostnames that may imitate known services</li>
+        <li>Keywords related to logins, payments, security alerts, and accounts</li>
+        <li>HTML patterns such as forms, password fields, scripts, iframes, and finance words</li>
+      </ul>
 
-      <div class="meta-box">
-        <div class="meta-label">Engine</div>
-        <div class="meta-value">RazorPrime v1 · Balanced sensitivity · Lookalike-aware</div>
-      </div>
+      <h3 style="margin-top:12px;">How scoring works</h3>
+      <p class="desc">
+        The RazorPrime v1 engine produces an overall risk score along with three sub-scores that focus on:
+      </p>
+      <ul class="meta-list">
+        <li>Credential theft risk</li>
+        <li>Financial theft risk</li>
+        <li>Malware or exploit risk</li>
+      </ul>
 
       <p class="desc">
-        Use the <strong>Scanner</strong> tab in the navigation to paste a URL or HTML and let the shield
-        run its analysis. You can switch visual themes at any time using the <strong>Theme</strong> selector
-        in the top bar.
+        These scores are influenced by the context you choose (generic, login, payment, email) and the
+        sensitivity level (low, medium, high). The goal is not to panic the user, but to highlight
+        patterns that deserve a second look.
       </p>
 
-      <button onclick="window.location.href='scanner.html'">Open Scanner</button>
+      <p class="desc">
+        Proxuma Shield is a prototype and should be treated as an additional signal, not a final verdict.
+        Always combine its output with your own judgment and, when in doubt, navigate directly to known,
+        official sites instead of clicking unexpected links.
+      </p>
     </section>
   </div>
 </div>
 
 <footer>
-  PROXUMA SHIELD • RazorPrime v1 · Local-only prototype · Do not rely on this UI as a sole security decision-maker.
+  PROXUMA SHIELD • Prototype only • Use as a helper, not a definitive security authority.
 </footer>
 
 
