@@ -54,14 +54,12 @@
     --bg-color: #000000;
     --card-bg: #000000;
     --border-color: #fff200;
-
-    --text-color: #ffffff;
-    --muted-color: rgba(255,255,255,0.7);
-
+    --text-color: #fff200;
+    --muted-color: rgba(255,234,0,0.7);
     --accent-color: #fff200;
     --chip-bg: #000000;
     --button-bg: #000000;
-    --button-text: #ffffff;
+    --button-text: #fff200;
     --button-border: #fff200;
     --meter-border: #fff200;
   }
@@ -490,6 +488,26 @@
     color: var(--accent-color);
     border-color: var(--accent-color);
     background: rgba(0,0,0,0.4);
+  }
+
+
+  /* Center header branding and navigation */
+  header {
+    justify-content: center;
+  }
+  .header-left {
+    align-items: center;
+    text-align: center;
+  }
+  .nav-links {
+    justify-content: center;
+  }
+
+  /* Enforce Yellow theme = white text (Neon parity safeguard) */
+  :root[data-theme="yellow"] {
+    --text-color: #ffffff;
+    --muted-color: rgba(255,255,255,0.7);
+    --button-text: #ffffff;
   }
 
 </style>
