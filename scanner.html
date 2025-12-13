@@ -54,12 +54,12 @@
     --bg-color: #000000;
     --card-bg: #000000;
     --border-color: #fff200;
-    --text-color: #fff200;
-    --muted-color: rgba(255,234,0,0.7);
-    --accent-color: #fff200;
+    --text-color: #ffffff;            /* all text white */
+    --muted-color: rgba(255,255,255,0.7);
+    --accent-color: #fff200;          /* accents stay yellow */
     --chip-bg: #000000;
     --button-bg: #000000;
-    --button-text: #fff200;
+    --button-text: #ffffff;           /* button text white */
     --button-border: #fff200;
     --meter-border: #fff200;
   }
@@ -307,7 +307,7 @@
   }
   .mini-meter-shell {
     flex:1;
-    height:6px;
+    height:10px;
     border-radius:999px;
     border:1px solid var(--meter-border);
     background:rgba(0,0,0,0.7);
@@ -832,6 +832,13 @@ function analyzeUrl(url) {
     info.hasSuspiciousTLD = suspiciousTLDs.includes(tld);
 
     const lowerUrl = url.toLowerCase();
+    let decodedUrl = url;
+    try {
+      decodedUrl = decodeURIComponent(url);
+    } catch (e) {
+      decodedUrl = url;
+    }
+    info.decodedSuspicious = /(login|signin|verify|reset|account|wallet|secure|password|passcode|2fa|bank|billing|support|invoice)/i.test(decodedUrl);
     const loginWords = ["login","signin","verify","reset","account","wallet","secure",
                         "update","security","check","password","auth","session"];
     info.hasLoginWords = loginWords.some(w => lowerUrl.includes(w));
@@ -957,13 +964,17 @@ function computeScore(urlInfo, htmlInfo, context) {
 
   if (urlInfo.obfuscationFlags.length > 0) {
     score += Math.min(8 + urlInfo.obfuscationFlags.length * 4, 20);
+    if (urlInfo.obfuscationFlags.some(f => f.toLowerCase().includes("shortener-style url")) && score < 45) {
+      score = 45;
+    }
   }
 
   score += urlInfo.entropyBoost;
 
   if (urlInfo.repeatedWords) score += 8;
 
-  if (urlInfo.hasZeroWidth) score += 12;
+  if (urlInfo.hasZeroWidth) score += 25;
+  if (urlInfo.hasNonAsciiHost) score += 28;
   if (urlInfo.hasNonAsciiHost) score += 10;
   if (urlInfo.hasFakeLock) score += 10;
 
@@ -990,11 +1001,13 @@ function computeScore(urlInfo, htmlInfo, context) {
   let malwareScore = 0;
 
   if (urlInfo.hasLoginWords || htmlInfo.passwordFields > 0) credScore += 25;
+  if (urlInfo.decodedSuspicious) credScore += 18;
   if (urlInfo.brandHit && urlInfo.hasLoginWords) credScore += 20;
   if (htmlInfo.dangerousWords.length > 0) credScore += 10;
   if (urlInfo.brandLeetImpersonation) credScore += 25;
 
   if (urlInfo.hasSuspiciousTLD) financialScore += 15;
+  if (urlInfo.decodedSuspicious) financialScore += 10;
   if (htmlInfo.dangerousWords.some(w => w === "bank" || w === "credit card")) {
     financialScore += 20;
   }
@@ -1015,6 +1028,13 @@ function computeScore(urlInfo, htmlInfo, context) {
   if (context.profile === "email") multiplier *= 1.2;
 
   score *= multiplier;
+
+  if (urlInfo.hasNonAsciiHost && urlInfo.brandHit && score < 80) {
+    score = 80;
+  }
+  if (urlInfo.hasZeroWidth && urlInfo.host && score < 45) {
+    score = 45;
+  }
 
   let redFlags = 0;
   if (urlInfo.hasSuspiciousTLD) redFlags++;
