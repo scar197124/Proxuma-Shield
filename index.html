@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Proxuma Shield — Razor Prime (Full v6)</title>
+<title>Proxuma Shield — Razor Prime (Full v5)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   * { box-sizing: border-box; }
-
   :root {
     --bg-color: #000000;
     --card-bg: #000000;
@@ -14,12 +13,12 @@
     --text-color: #ffffff;
     --muted-color: rgba(245,245,245,0.7);
     --accent-color: #00ff66;
+    --chip-bg: #000000;
     --button-bg: #000000;
     --button-text: #00ff66;
     --button-border: #00ff66;
     --meter-border: #00ff66;
   }
-
   :root[data-theme="light"] {
     --bg-color: #ffffff;
     --card-bg: #ffffff;
@@ -27,12 +26,12 @@
     --text-color: #000000;
     --muted-color: rgba(0,0,0,0.65);
     --accent-color: #000000;
+    --chip-bg: #ffffff;
     --button-bg: #ffffff;
     --button-text: #000000;
     --button-border: #000000;
     --meter-border: #000000;
   }
-
   body {
     background: var(--bg-color);
     color: var(--text-color);
@@ -40,84 +39,64 @@
     margin:0;
     padding:0;
   }
-
-  /* =========================
-     HEADER (v3 style, refined)
-     ========================= */
+  /* === HEADER (v3 core-aligned + outward spacing) === */
   #proxumaHeader {
     border-bottom: 2px solid var(--border-color);
     background: var(--bg-color);
-    padding: 26px 60px 22px;
+    padding: 28px 60px 26px;
   }
-
-  .core-row {
+  .core-row{
     display:grid;
     grid-template-columns: 1fr auto 1fr;
     align-items:center;
   }
-
-  /* Move brand block outward from center (right-aligned on left column) */
-  .brand-block {
+  .brand-block{
     justify-self:end;
     text-align:right;
-    padding-right: 84px;
+    padding-right: 80px;
   }
-
-  .brand-title {
-    font-size: 1.55rem;
-    font-weight: 750;
-    letter-spacing: 0.09em;
+  .brand-title{
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--accent-color);
   }
-
-  .brand-sub {
-    font-size: 0.78rem;
-    opacity: 0.78;
+  .brand-sub{
+    font-size: 0.75rem;
+    opacity: 0.75;
     margin-top: 2px;
     color: var(--muted-color);
   }
-
-  .core-center { justify-self:center; }
-
-  /* Proxuma button */
-  .core-btn {
+  .core-center{ justify-self:center; }
+  .core-btn{
     border: 2px solid var(--border-color);
     background: transparent;
     color: var(--button-text);
     padding: 8px 28px;
     border-radius: 999px;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     letter-spacing: 0.12em;
     cursor: pointer;
-    transition: 0.18s ease;
+    transition: 0.2s ease;
   }
-
-  .core-btn:hover {
+  .core-btn:hover{
     background: var(--accent-color);
     color: var(--bg-color);
-    box-shadow: 0 0 14px rgba(0,255,102,0.22);
   }
-  :root[data-theme="light"] .core-btn:hover {
-    box-shadow: 0 0 10px rgba(0,0,0,0.18);
-  }
-
-  /* Theme toggle outward from center (left-aligned on right column) */
-  .theme-toggle {
+  .theme-toggle{
     justify-self:start;
-    padding-left: 84px;
+    padding-left: 80px;
     display:flex;
     align-items:center;
     gap:10px;
     color: var(--text-color);
   }
-
-  .theme-label {
-    font-size: 0.86rem;
+  .theme-label{
+    font-size: 0.85rem;
     opacity: 0.9;
     white-space: nowrap;
   }
-
   /* Switch */
   .switch {
     position: relative;
@@ -160,10 +139,9 @@
   input:checked + .slider:before {
     transform: translateX(18px);
   }
-
   /* Nav row centered on About */
   .nav-grid {
-    margin-top: 24px;
+    margin-top: 28px;
     display:grid;
     grid-template-columns: 1fr auto 1fr;
     align-items:center;
@@ -171,47 +149,41 @@
   .nav-left { justify-self: end; }
   .nav-center { justify-self: center; }
   .nav-right { justify-self: start; }
-
-  .nav-grid button {
+  .nav-grid button{
     border: 2px solid var(--border-color);
     background: transparent;
     color: var(--button-text);
     padding: 8px 20px;
     border-radius: 999px;
-    font-size: 0.97rem;
+    font-size: 0.95rem;
     cursor:pointer;
     transition: 0.15s ease;
   }
-  .nav-grid button:hover {
+  .nav-grid button:hover{
     background: var(--accent-color);
     color: var(--bg-color);
   }
-  .nav-grid button.active {
+  .nav-grid button.active{
     background: var(--accent-color);
     color: var(--bg-color);
-    box-shadow: 0 0 10px rgba(0,255,102,0.33);
+    box-shadow: 0 0 10px rgba(0,255,102,0.35);
   }
-  :root[data-theme="light"] .nav-grid button.active {
+  :root[data-theme="light"] .nav-grid button.active{
     box-shadow: 0 0 10px rgba(0,0,0,0.18);
   }
-
-  /* =========================
-     PAGE SECTIONS (Home/About/Scanner)
-     ========================= */
+  /* === PAGE SECTIONS (Home / About / Scanner) === */
   .page-section {
     max-width: 1100px;
-    margin: 18px auto 0;
+    margin: 20px auto 0;
     padding: 22px 24px;
     border-radius: 14px;
     position: relative;
   }
-
   :root[data-theme="light"] .page-section {
     background: #ffffff;
     border: 2px solid #111;
     box-shadow: none;
   }
-
   :root:not([data-theme="light"]) .page-section {
     background: #000000;
     border: 2px solid var(--border-color);
@@ -219,8 +191,6 @@
       0 0 0 1px rgba(0,255,102,0.22),
       0 0 14px rgba(0,255,102,0.18);
   }
-
-  /* HUD corner brackets */
   .page-section::before,
   .page-section::after {
     content: "";
@@ -250,11 +220,9 @@
     border-color: var(--border-color);
     box-shadow: 0 0 6px rgba(0,255,102,0.55);
   }
-
   h1 { margin: 0 0 10px; font-size: 22px; }
   h2 { margin: 16px 0 10px; font-size: 16px; letter-spacing: 0.4px; }
   p.desc { margin: 0; color: var(--muted-color); font-size: 12.5px; line-height: 1.55; }
-
   .pill-row {
     display:flex;
     flex-wrap:wrap;
@@ -270,7 +238,6 @@
     background: rgba(0,0,0,0.4);
   }
   :root[data-theme="light"] .pill { background:#f6f6f6; }
-
   .inline-link {
     border: none;
     background: none;
@@ -283,13 +250,9 @@
   .inline-link:hover { text-decoration: none; }
   .feature-list { padding-left: 1.2rem; margin: 8px 0; }
   .feature-list li { margin-bottom: 6px; }
-
-  /* =========================
-     SCANNER UI (Full Razor++)
-     ========================= */
+  /* === SCANNER UI (original stacked build) === */
   .wrapper { max-width:1100px; margin:0 auto; padding:0; }
   .stacked { display:flex; flex-direction:column; gap:18px; }
-
   .section {
     background: radial-gradient(circle at top left,
       rgba(0,255,102,0.07),
@@ -305,12 +268,9 @@
     background: #ffffff;
     box-shadow: none;
   }
-
   .section h2 { margin:0 0 8px; font-size:16px; letter-spacing:0.5px; }
   .section p.desc { margin:0 0 12px; font-size:12px; color: var(--muted-color); }
-
   label { display:block; margin:9px 0 5px; font-size:13px; opacity:0.9; }
-
   input, textarea, select {
     width:100%;
     padding:9px 10px;
@@ -328,15 +288,10 @@
     background:#f9f9f9;
     color:#000;
   }
-
-  input:focus, textarea:focus, select:focus {
-    box-shadow:0 0 0 1px var(--accent-color);
-  }
+  input:focus, textarea:focus, select:focus { box-shadow:0 0 0 1px var(--accent-color); }
   textarea { min-height:90px; resize:vertical; }
-
   .inline { display:flex; gap:10px; flex-wrap:wrap; }
   .inline > * { flex:1 1 120px; }
-
   button#scanBtn {
     margin-top:14px;
     width:100%;
@@ -347,8 +302,8 @@
     border-radius:999px;
     font-size:14px;
     cursor:pointer;
-    font-weight:600;
-    letter-spacing:0.5px;
+    font-weight:500;
+    letter-spacing:0.4px;
     transition: background 0.15s ease, transform 0.08s ease, box-shadow 0.15s ease;
   }
   button#scanBtn:hover {
@@ -360,10 +315,8 @@
     box-shadow:0 0 8px rgba(0,0,0,0.18);
   }
   button#scanBtn:active { transform:translateY(1px); }
-
   .status-bar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:4px; }
-  .score { font-size:28px; font-weight:700; }
-
+  .score { font-size:28px; font-weight:600; }
   .risk-tag {
     padding:5px 10px;
     border-radius:999px;
@@ -375,11 +328,9 @@
   .risk-low { background:rgba(0,255,102,0.12); }
   .risk-medium { background:rgba(210,160,0,0.12); }
   .risk-high { background:rgba(255,85,85,0.12); }
-
   :root[data-theme="light"] .risk-low { background:rgba(0,200,80,0.09); }
   :root[data-theme="light"] .risk-medium { background:rgba(210,160,0,0.12); }
   :root[data-theme="light"] .risk-high { background:rgba(200,40,40,0.13); }
-
   .meter-shell {
     margin-top:10px;
     width:100%;
@@ -390,7 +341,6 @@
     border:2px solid var(--meter-border);
   }
   :root[data-theme="light"] .meter-shell { background:#f2f2f2; }
-
   .meter-fill {
     height:100%;
     width:0%;
@@ -400,11 +350,9 @@
   :root[data-theme="light"] .meter-fill {
     background:linear-gradient(90deg,#222,#666,#999,#000);
   }
-
   .mini-risk-grid { margin-top:12px; display:grid; grid-template-columns: 1fr; gap:6px; }
   .mini-risk-row { display:flex; align-items:center; gap:8px; font-size:11px; }
   .mini-risk-label { width:110px; color:var(--muted-color); }
-
   .mini-meter-shell {
     flex:1;
     height:6px;
@@ -414,7 +362,6 @@
     overflow:hidden;
   }
   :root[data-theme="light"] .mini-meter-shell { background:#f2f2f2; }
-
   .mini-meter-fill {
     height:100%;
     width:0%;
@@ -422,7 +369,6 @@
     transition:width 0.4s ease-out;
   }
   .mini-risk-value { width:42px; text-align:right; font-size:11px; }
-
   .meta-grid {
     display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
@@ -437,7 +383,6 @@
     font-size:11px;
   }
   :root[data-theme="light"] .meta-box { background:#fafafa; }
-
   .meta-label { color: var(--muted-color); margin-bottom:2px; }
   .meta-value { font-size:13px; }
   .chip {
@@ -449,7 +394,6 @@
     margin-top:4px;
     color: var(--muted-color);
   }
-
   .output-block {
     margin-top:10px;
     padding:9px 10px;
@@ -461,7 +405,6 @@
     color: var(--text-color);
   }
   :root[data-theme="light"] .output-block { background:#fafafa; color:#000; }
-
   .collapse-header {
     display:flex;
     align-items:center;
@@ -480,7 +423,6 @@
   .output-block.collapsed .collapse-body { display:none; }
   .output-block.collapsed .chevron { transform:rotate(-90deg); }
   .muted { color: var(--muted-color); }
-
   .history-wrapper { margin-top:18px; }
   .history-list {
     margin-top:8px;
@@ -498,7 +440,6 @@
     font-size:11px;
   }
   :root[data-theme="light"] .history-item { background:#fbfbfb; }
-
   .history-top {
     display:flex;
     justify-content:space-between;
@@ -526,8 +467,7 @@
     gap:6px;
     flex-wrap:wrap;
   }
-
-  footer {
+  footer{
     padding:14px;
     text-align:center;
     font-size:11px;
@@ -536,7 +476,6 @@
     background: var(--bg-color);
     margin-top: 22px;
   }
-
   @media (max-width: 900px) {
     #proxumaHeader { padding: 18px 16px 18px; }
     .core-row { grid-template-columns: 1fr; gap: 14px; text-align:center; }
@@ -550,20 +489,15 @@
 </style>
 </head>
 <body>
-
 <header id="proxumaHeader">
   <div class="core-row">
     <div class="brand-block">
       <div class="brand-title">Proxuma Shield</div>
       <div class="brand-sub">Razor Prime · Local-Only Defense</div>
     </div>
-
     <div class="core-center">
-      <a href="https://scar197124.github.io/PROXUMA/" target="_blank" rel="noopener noreferrer" aria-label="Open Proxuma canonical site in a new tab">
-        <button class="core-btn" id="proxumaCoreBtn" type="button">Proxuma</button>
-      </a>
+      <button class="core-btn" id="proxumaCoreBtn" type="button">Proxuma</button>
     </div>
-
     <div class="theme-toggle" title="Toggle theme">
       <label class="switch">
         <input type="checkbox" id="themeToggle">
@@ -572,7 +506,6 @@
       <span class="theme-label" id="themeLabel">Neon Mode</span>
     </div>
   </div>
-
   <div class="nav-grid">
     <div class="nav-left"><button id="navHome" type="button">Home</button></div>
     <div class="nav-center"><button id="navAbout" type="button">About</button></div>
@@ -584,32 +517,15 @@
   <section id="home" class="page-section">
     <h1>Welcome to Proxuma Shield</h1>
     <p class="desc" style="margin-top:8px;">
-      Proxuma Shield is a <strong>local-only</strong> protection layer for link and page-risk checking.
-      Paste a URL, optionally add raw HTML, and Razor Prime will evaluate patterns associated with phishing,
-      scams, credential traps, and look‑alike domains — <strong>without sending anything to the internet.</strong>
+      A local-only protection layer for link and page-risk checking. Paste a URL, optionally add raw HTML,
+      and let Razor Prime analyze patterns associated with phishing, scams, credential traps, and look‑alike domains —
+      <strong>without sending anything to the internet.</strong>
     </p>
-
     <div class="pill-row" style="margin-top:10px;">
       <div class="pill">No external requests</div>
       <div class="pill">Local-only heuristic analysis</div>
-      <div class="pill">Razor++ Engine · Lookalike aware</div>
-      <div class="pill">History stored locally</div>
+      <div class="pill">Engine v10.1 · Local-context aware</div>
     </div>
-
-    <h2 style="margin-top:18px;">How to use it</h2>
-    <ul class="feature-list">
-      <li>Paste the link you were sent (email, DM, SMS, website).</li>
-      <li>Choose a context profile (generic, login, payment, email) and sensitivity.</li>
-      <li>Optional: paste raw HTML to detect forms, password fields, scripts, iframes, and sensitive keywords.</li>
-      <li>Read the summary, verify the domain, and follow the recommended actions.</li>
-    </ul>
-
-    <h2 style="margin-top:16px;">Why it matters</h2>
-    <p class="desc">
-      Most modern attacks succeed because the page <em>looks</em> right while the URL is slightly wrong.
-      Shield is built to make those subtle signals visible — fast — so you can decide before you click deeper.
-    </p>
-
     <p class="desc" style="margin-top:12px;">
       Ready? Go to the <button class="inline-link" type="button" id="homeToScanner">Scanner</button>.
     </p>
@@ -619,31 +535,20 @@
     <h1>About Proxuma Shield</h1>
     <p class="desc" style="margin-top:8px;">
       Proxuma Shield is a privacy-first scanner designed to help you evaluate a link before you trust it.
-      It scores risk using local heuristics only (no cloud lookups, no tracking).
+      It scores risk using local heuristics (no cloud lookups, no tracking).
     </p>
-
     <h2>What it checks</h2>
     <ul class="feature-list">
       <li>HTTPS vs non-HTTPS, suspicious TLDs, IP-host links, and subdomain tricks</li>
       <li>Redirect and obfuscation patterns (nested URLs, shorteners, encoding)</li>
       <li>Look-alike and leet-style brand impersonation signals</li>
       <li>Optional raw HTML signals (forms, password fields, scripts, iframes, sensitive keywords)</li>
-      <li>Invisible characters / non-ASCII hostname risk (homoglyph patterns)</li>
-      <li>High-entropy path/query patterns often used in exploit payloads</li>
     </ul>
-
     <h2>Local Context Awareness</h2>
     <p class="desc">
       If a link begins with <code>file://</code>, Shield treats it as <em>environmental sensitivity</em> rather than malicious network behavior,
       preventing false “100/100” alarms for local developer files.
     </p>
-
-    <h2>Important note</h2>
-    <p class="desc">
-      This is a heuristic prototype. A low score does not guarantee safety.
-      Always verify the domain and use strong caution before entering credentials or payments.
-    </p>
-
     <p class="desc" style="margin-top:10px;">
       Go to the <button class="inline-link" type="button" id="aboutToScanner">Scanner</button> to run a check.
     </p>
@@ -652,17 +557,14 @@
   <section id="scanner" class="page-section" style="display:none;">
     <div class="wrapper">
       <div class="stacked">
-        <!-- INPUT -->
         <section class="section">
           <h2>Input Layer</h2>
           <p class="desc">
-            Paste a URL and optional HTML. Razor++ runs local-only heuristic checks.
-            Nothing is sent anywhere.
+            Paste a URL and optional HTML. Shield v1.0 Razor++ runs local-only heuristic checks.
+            It does not contact any external server and is designed to read cleanly on phones and desktops.
           </p>
-
           <label for="url">URL to analyze</label>
           <input id="url" type="text" placeholder="https://example.com/login">
-
           <div class="inline" style="margin-top:10px;">
             <div>
               <label for="profile">Context profile</label>
@@ -682,30 +584,24 @@
               </select>
             </div>
           </div>
-
           <label for="html">Paste raw HTML (optional)</label>
           <textarea id="html" placeholder="&lt;html&gt;...&lt;/html&gt;"></textarea>
-
           <label for="notes">Notes (optional)</label>
           <textarea id="notes" placeholder="Why are you checking this link? Any suspicious behavior? (kept local only)"></textarea>
-
           <button id="scanBtn" type="button">Run Razor++ Scan</button>
-
           <div class="pill-row">
             <div class="pill">No external requests</div>
-            <div class="pill">Lookalike aware</div>
-            <div class="pill">Split risk lanes</div>
-            <div class="pill">Local history</div>
+            <div class="pill">Heuristic engine v1.0 Razor++ · Lookalike aware</div>
+            <div class="pill">Layout: Mobile-stacked</div>
           </div>
         </section>
 
-        <!-- SNAPSHOT -->
         <section class="section">
           <h2>Risk Snapshot</h2>
           <p class="desc">
-            Overall risk score with separate threat lanes: credential theft, financial theft, and malware/exploit.
+            High-level risk with structured URL and HTML signals, tuned for phishing, scams, and credential traps —
+            including lookalike awareness and split risk lanes.
           </p>
-
           <div class="status-bar">
             <div>
               <div style="font-size:11px; color:var(--muted-color);">Overall risk score</div>
@@ -713,7 +609,6 @@
             </div>
             <div class="risk-tag" id="riskTag">Waiting for scan</div>
           </div>
-
           <div class="meter-shell"><div class="meter-fill" id="meterFill"></div></div>
 
           <div class="mini-risk-grid">
@@ -748,11 +643,10 @@
           </div>
         </section>
 
-        <!-- EXPLAINERS -->
         <section class="section">
           <h2>Explainer Panels</h2>
           <p class="desc">
-            Collapsible panels show: primary summary, detailed findings, and recommended actions.
+            Collapsible panels give a human-readable breakdown of the scan: headline summary, raw signals, and practical next steps.
           </p>
 
           <div class="output-block" id="summaryBlock">
@@ -780,7 +674,6 @@
           </div>
         </section>
 
-        <!-- HISTORY -->
         <section class="section history-wrapper">
           <h2>Scan history (local)</h2>
           <p class="desc">Recent scans are stored only in this browser. Clear your storage to reset.</p>
@@ -794,10 +687,12 @@
 </main>
 
 <footer>
-  PROXUMA SHIELD · Razor Prime · Full v6 · Local-only heuristic prototype · Do not rely on this UI as a sole security decision-maker.
+  PROXUMA SHIELD Razor Prime · Full v5 · Local-only heuristic prototype · Do not rely on this UI as a sole security decision-maker.
 </footer>
 
 <script>
+  const PROXUMA_CANONICAL_URL = "canonical.html";
+
   function showPage(id) {
     const pages = ["home","about","scanner"];
     pages.forEach(p => {
@@ -825,10 +720,12 @@
   document.getElementById("homeToScanner").addEventListener("click", () => showPage("scanner"));
   document.getElementById("aboutToScanner").addEventListener("click", () => showPage("scanner"));
 
-  // Theme toggle with persistence
+  document.getElementById("proxumaCoreBtn").addEventListener("click", () => {
+    try { window.location.href = PROXUMA_CANONICAL_URL; } catch (e) {}
+  });
+
   (function initThemeToggle() {
-    const key = "proxuma_theme_v10";
-    const saved = window.localStorage.getItem(key) || "neon";
+    const saved = window.localStorage.getItem("proxuma_theme_v10") || "neon";
     const toggle = document.getElementById("themeToggle");
     const label = document.getElementById("themeLabel");
 
@@ -842,7 +739,7 @@
         const val = this.checked ? "light" : "neon";
         document.documentElement.setAttribute("data-theme", val);
         if (label) label.textContent = this.checked ? "Light Mode" : "Neon Mode";
-        try { window.localStorage.setItem(key, val); } catch (e) {}
+        try { window.localStorage.setItem("proxuma_theme_v10", val); } catch (e) {}
       });
     }
   })();
@@ -861,7 +758,6 @@ function looksLikeIP(host) {
     return !isNaN(n) && n >= 0 && n <= 255;
   });
 }
-
 function entropyScore(str) {
   if (!str) return 0;
   const s = String(str);
@@ -882,12 +778,10 @@ function entropyScore(str) {
   if (entropy < 4.8) return 10;
   return 15;
 }
-
 function hasZeroWidth(str) {
   if (!str) return false;
   return /[\u200B-\u200F\uFEFF]/.test(str);
 }
-
 function hasNonAsciiHostname(host) {
   if (!host) return false;
   for (let i = 0; i < host.length; i++) {
@@ -895,12 +789,10 @@ function hasNonAsciiHostname(host) {
   }
   return false;
 }
-
 function hasFakeLockUnicode(str) {
   if (!str) return false;
   return /[\uD83D\uDD10\uD83D\uDD12]/.test(str);
 }
-
 function levenshtein(a, b) {
   if (!a) return b.length;
   if (!b) return a.length;
@@ -915,14 +807,12 @@ function levenshtein(a, b) {
   }
   return dp[b.length][a.length];
 }
-
 function normalizeLeet(str) {
   const map = { "0":"o", "1":"l", "3":"e", "4":"a", "5":"s", "7":"t", "8":"b" };
   let out = "";
   for (let i = 0; i < str.length; i++) out += map[str[i]] || str[i];
   return out;
 }
-
 function leetSubCount(original, normalized) {
   let count = 0;
   const len = Math.min(original.length, normalized.length);
@@ -940,9 +830,7 @@ function analyzeUrl(url) {
     leetSubCount:0, brandLeetImpersonation:false, wordLikeLeet:false, raw:url || "",
     contextType:"network"
   };
-
   if (!url) return info;
-
   try {
     const u = new URL(url);
     info.valid = true;
@@ -962,34 +850,20 @@ function analyzeUrl(url) {
     info.hasSuspiciousTLD = suspiciousTLDs.includes(tld);
 
     const lowerUrl = url.toLowerCase();
-    const loginWords = ["login","signin","verify","reset","account","wallet","secure",
-                        "update","security","check","password","auth","session"];
+    const loginWords = ["login","signin","verify","reset","account","wallet","secure","update","security","check","password","auth","session"];
     info.hasLoginWords = loginWords.some(w => lowerUrl.includes(w));
 
-    info.trackingParams = lowerUrl.includes("utm_") ||
-                          lowerUrl.includes("gclid") ||
-                          lowerUrl.includes("fbclid") ||
-                          lowerUrl.includes("ref=") ||
-                          lowerUrl.includes("campaign=");
+    info.trackingParams = lowerUrl.includes("utm_") || lowerUrl.includes("gclid") || lowerUrl.includes("fbclid") || lowerUrl.includes("ref=") || lowerUrl.includes("campaign=");
 
     const hostLower = info.host.toLowerCase();
-    const brandKeywords = [
-      "google","paypal","apple","microsoft","facebook","meta","amazon","netflix",
-      "bankofamerica","chase","td","rbc","gmail","outlook","yahoo","instagram",
-      "telegram","whatsapp","binance","coinbase","twitter","x.com"
-    ];
+    const brandKeywords = ["google","paypal","apple","microsoft","facebook","meta","amazon","netflix","bankofamerica","chase","td","rbc","gmail","outlook","yahoo","instagram","telegram","whatsapp","binance","coinbase","twitter","x.com"];
     info.brandHit = brandKeywords.some(b => hostLower.includes(b));
 
     const obf = [];
     if (url.includes("@")) obf.push("contains @ in URL");
     if (url.includes("%")) obf.push("percent-encoding present");
     if (url.includes("\\x")) obf.push("hex-style escapes");
-    if (lowerUrl.includes("://bit.ly") ||
-        lowerUrl.includes("://t.co") ||
-        lowerUrl.includes("://tinyurl") ||
-        lowerUrl.includes("://goo.gl")) {
-      obf.push("shortener-style URL");
-    }
+    if (lowerUrl.includes("://bit.ly") || lowerUrl.includes("://t.co") || lowerUrl.includes("://tinyurl") || lowerUrl.includes("://goo.gl")) obf.push("shortener-style URL");
     if (lowerUrl.includes("redirect=") || lowerUrl.includes("redir=")) obf.push("redirect parameter");
     if (lowerUrl.includes("url=") && lowerUrl.includes("http")) obf.push("nested URL parameter");
     info.obfuscationFlags = obf;
@@ -1010,8 +884,7 @@ function analyzeUrl(url) {
     info.hasFakeLock = hasFakeLockUnicode(url);
 
     const hostNorm = normalizeLeet(hostLower);
-    const subCount = leetSubCount(hostLower, hostNorm);
-    info.leetSubCount = subCount;
+    info.leetSubCount = leetSubCount(hostLower, hostNorm);
 
     const sld = hostLower.split(".").slice(-2, -1)[0] || "";
     const sldNorm = normalizeLeet(sld);
@@ -1024,7 +897,6 @@ function analyzeUrl(url) {
       }
     }
   } catch (e) {}
-
   return info;
 }
 
@@ -1033,49 +905,36 @@ function analyzeHtml(html) {
   const res = { present:false, forms:0, passwordFields:0, scriptTags:0, iframes:0, dangerousWords:[] };
   if (!html || !html.trim()) return res;
   res.present = true;
-
   const lower = html.toLowerCase();
   const matches = (pattern) => (lower.match(pattern) || []).length;
-
   res.forms = matches(/<form\b/gi);
-  res.passwordFields = matches(/type=["']password["']/gi);
+  res.passwordFields = matches(/type=[\"']password[\"']/gi);
   res.scriptTags = matches(/<script\b/gi);
   res.iframes = matches(/<iframe\b/gi);
-
-  const dangerList = [
-    "crypto","seed phrase","metamask","bank","credit card",
-    "2fa","one-time code","social security","private key","wallet","mnemonic"
-  ];
+  const dangerList = ["crypto","seed phrase","metamask","bank","credit card","2fa","one-time code","social security","private key","wallet","mnemonic"];
   res.dangerousWords = dangerList.filter(w => lower.includes(w));
-
   return res;
 }
 
-// ---------- Scoring engine v6 (Razor++) ----------
+// ---------- Scoring engine ----------
 function computeScore(urlInfo, htmlInfo, context) {
   let score = 5;
-
   if (!urlInfo.valid && urlInfo.raw) score += 24;
   if (urlInfo.valid && !urlInfo.https) score += 22;
-
   if (urlInfo.hasSuspiciousTLD) score += 30;
   if (urlInfo.isIP) score += 15;
   if (urlInfo.hasManySubdomains) score += 13;
   if (urlInfo.length > 120) score += 8;
   if (urlInfo.length > 220) score += 8;
-
   if (urlInfo.hasLoginWords) score += 21;
   if (urlInfo.trackingParams) score += 4;
   if (urlInfo.brandHit) score += 12;
-
   if (urlInfo.obfuscationFlags.length > 0) score += Math.min(8 + urlInfo.obfuscationFlags.length * 4, 20);
   score += urlInfo.entropyBoost;
-
   if (urlInfo.repeatedWords) score += 8;
   if (urlInfo.hasZeroWidth) score += 12;
   if (urlInfo.hasNonAsciiHost) score += 10;
   if (urlInfo.hasFakeLock) score += 10;
-
   if (htmlInfo.present) {
     score += htmlInfo.forms * 4;
     score += htmlInfo.passwordFields * 11;
@@ -1083,14 +942,11 @@ function computeScore(urlInfo, htmlInfo, context) {
     score += Math.min(htmlInfo.iframes * 4, 18);
     score += htmlInfo.dangerousWords.length * 8;
   }
-
   if (urlInfo.brandLeetImpersonation) score += 40;
   if (urlInfo.wordLikeLeet && urlInfo.leetSubCount >= 1) score += 12;
   if (urlInfo.leetSubCount >= 2) score += 6;
 
-  // Split threat lanes
   let credScore = 0, financialScore = 0, malwareScore = 0;
-
   if (urlInfo.hasLoginWords || htmlInfo.passwordFields > 0) credScore += 25;
   if (urlInfo.brandHit && urlInfo.hasLoginWords) credScore += 20;
   if (htmlInfo.dangerousWords.length > 0) credScore += 10;
@@ -1103,20 +959,15 @@ function computeScore(urlInfo, htmlInfo, context) {
   if (urlInfo.entropyBoost >= 10 || urlInfo.obfuscationFlags.length > 0) malwareScore += 20;
   if (htmlInfo.scriptTags > 4 || htmlInfo.iframes > 2) malwareScore += 15;
 
-  // Sensitivity multipliers
-  if (context.sensitivity === "high") {
-    credScore *= 1.2; financialScore *= 1.2;
-  }
+  if (context.sensitivity === "high") { credScore *= 1.2; financialScore *= 1.2; }
 
   let multiplier = 1.0;
   if (context.sensitivity === "high") multiplier *= 1.2;
   if (context.profile === "payment") multiplier *= 1.25;
   if (context.profile === "login") multiplier *= 1.15;
   if (context.profile === "email") multiplier *= 1.2;
-
   score *= multiplier;
 
-  // Red-flag escalation
   let redFlags = 0;
   if (urlInfo.hasSuspiciousTLD) redFlags++;
   if (urlInfo.hasManySubdomains) redFlags++;
@@ -1126,29 +977,21 @@ function computeScore(urlInfo, htmlInfo, context) {
   if (urlInfo.entropyBoost >= 10) redFlags++;
   if (urlInfo.hasNonAsciiHost || urlInfo.hasZeroWidth) redFlags++;
   if (urlInfo.brandLeetImpersonation || urlInfo.wordLikeLeet) redFlags++;
-
   if (redFlags >= 3) score *= 1.12;
   if (redFlags >= 4) score *= 1.22;
   if (redFlags >= 5) score *= 1.32;
 
-  // Minimum floors for combinations
   let minScore = 0;
   if (urlInfo.hasSuspiciousTLD && urlInfo.hasManySubdomains) minScore = Math.max(minScore, 72);
   if (urlInfo.hasSuspiciousTLD && urlInfo.hasLoginWords) minScore = Math.max(minScore, 78);
   if (urlInfo.hasSuspiciousTLD && urlInfo.brandHit && (urlInfo.hasLoginWords || urlInfo.hasManySubdomains)) minScore = Math.max(minScore, 92);
   if (urlInfo.brandHit && urlInfo.hasLoginWords && (urlInfo.obfuscationFlags.length > 0 || urlInfo.entropyBoost >= 10)) minScore = Math.max(minScore, 88);
   if (urlInfo.brandLeetImpersonation) minScore = Math.max(minScore, 90);
-
-  // If only HTML (no URL), cap intensity
-  if (!urlInfo.raw && htmlInfo.present) if (score > 60) score = 60;
-
+  if (!urlInfo.raw && htmlInfo.present) { if (score > 60) score = 60; }
   if (score < minScore) score = minScore;
-
-  // Local file context cap
-  if (urlInfo.contextType === "local-file") if (score > 50) score = 50;
+  if (urlInfo.contextType === "local-file") { if (score > 50) score = 50; }
 
   score = Math.max(0, Math.min(100, score));
-
   return {
     total: Math.round(score),
     credential: Math.round(Math.max(0, Math.min(100, credScore))),
@@ -1166,18 +1009,12 @@ function riskLabel(score) {
 function summarize(urlInfo, htmlInfo, scores) {
   const score = scores.total;
   if (!urlInfo.raw) return "No URL provided. Enter a URL and run Razor++ Scan to generate a risk snapshot.";
-
   const base = `This link was evaluated using local heuristic checks only. The current risk score is ${score}/100.`;
-
   if (!urlInfo.valid) return base + " The URL could not be parsed reliably, which itself may indicate tampering or copy-paste errors. Treat with caution.";
-
   if (urlInfo.contextType === "local-file") return base + " This link points to a local file on your device. The score reflects environmental sensitivity rather than malicious network behavior.";
-
   const parts = [];
-
   if (!urlInfo.https) parts.push("The connection is not using HTTPS, so data in transit could potentially be intercepted or modified.");
   else parts.push("The connection is using HTTPS, which helps protect data in transit, but does not guarantee the site is trustworthy.");
-
   if (urlInfo.hasSuspiciousTLD) parts.push("The top-level domain is associated with higher abuse rates or disposable hosting.");
   if (urlInfo.isIP) parts.push("The link goes directly to an IP address rather than a named domain, which is unusual for mainstream services.");
   if (urlInfo.hasManySubdomains) parts.push("The domain contains multiple nested subdomains, which attackers sometimes use to mimic legitimate brands.");
@@ -1188,16 +1025,13 @@ function summarize(urlInfo, htmlInfo, scores) {
   if (urlInfo.hasZeroWidth || urlInfo.hasNonAsciiHost) parts.push("The domain or URL contains invisible or non-standard characters, which can be used for lookalike or homoglyph attacks.");
   if (urlInfo.wordLikeLeet) parts.push("The domain resembles a word but uses letter-to-number substitutions, which is a common lookalike pattern.");
   if (urlInfo.brandLeetImpersonation) parts.push("The domain appears to imitate a well-known brand name using character substitutions, a strong phishing indicator.");
-
   if (htmlInfo.present) {
     if (htmlInfo.passwordFields > 0) parts.push("The HTML appears to contain password input fields.");
     if (htmlInfo.scriptTags > 0) parts.push("The page includes active scripts that could modify content or capture data.");
     if (htmlInfo.iframes > 0) parts.push("Embedded iframes are present, which can be used for tracking, overlays, or hidden content injection.");
     if (htmlInfo.dangerousWords.length > 0) parts.push("Sensitive finance or wallet-related keywords detected in the HTML: " + htmlInfo.dangerousWords.join(", ") + ".");
   }
-
   if (!parts.length) parts.push("No strong red-flag patterns were detected by this prototype, but this does not guarantee safety.");
-
   return base + " " + parts.join(" ");
 }
 
@@ -1249,7 +1083,6 @@ function buildActionsText(score) {
     "• When in doubt, navigate to the site manually instead of clicking on links from email or chat.",
     "• Compare the domain carefully against the official site (extra letters, dashes, or strange endings can indicate phishing)."
   ];
-
   if (score >= 70) {
     return [
       "This prototype flags the link as HIGH RISK based on the observable patterns.",
@@ -1281,7 +1114,7 @@ function buildActionsText(score) {
   }
 }
 
-// ---------- History handling ----------
+// History
 function loadHistory() {
   try {
     const raw = window.localStorage.getItem("proxuma_history_v10");
@@ -1289,15 +1122,11 @@ function loadHistory() {
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
     return parsed;
-  } catch (e) {
-    return [];
-  }
+  } catch (e) { return []; }
 }
-
 function saveHistory(list) {
   try { window.localStorage.setItem("proxuma_history_v10", JSON.stringify(list)); } catch (e) {}
 }
-
 function renderHistory() {
   const container = document.getElementById("historyList");
   const history = loadHistory();
@@ -1309,25 +1138,19 @@ function renderHistory() {
     container.appendChild(div);
     return;
   }
-
   history.forEach(item => {
     const card = document.createElement("div");
     card.className = "history-item";
-
     const top = document.createElement("div");
     top.className = "history-top";
-
     const urlSpan = document.createElement("div");
     urlSpan.className = "history-url";
     urlSpan.textContent = item.url || "(no URL)";
-
     const tag = document.createElement("div");
     tag.className = "history-tag";
     tag.textContent = item.level + " · " + item.score;
-
     top.appendChild(urlSpan);
     top.appendChild(tag);
-
     const meta = document.createElement("div");
     meta.className = "history-meta";
     const left = document.createElement("span");
@@ -1336,27 +1159,21 @@ function renderHistory() {
     right.textContent = item.time;
     meta.appendChild(left);
     meta.appendChild(right);
-
     card.appendChild(top);
     card.appendChild(meta);
     container.appendChild(card);
   });
 }
-
-// ---------- Collapse toggles ----------
 function toggleBlock(id) {
   const block = document.getElementById(id + "Block");
   if (!block) return;
   block.classList.toggle("collapsed");
 }
-
 document.getElementById("summaryHeader").addEventListener("click", function () { toggleBlock("summary"); });
 document.getElementById("detailsHeader").addEventListener("click", function () { toggleBlock("details"); });
 document.getElementById("actionsHeader").addEventListener("click", function () { toggleBlock("actions"); });
-
 renderHistory();
 
-// ---------- Scan handler ----------
 document.getElementById("scanBtn").addEventListener("click", function () {
   const url = document.getElementById("url").value.trim();
   const html = document.getElementById("html").value;
@@ -1376,11 +1193,8 @@ document.getElementById("scanBtn").addEventListener("click", function () {
   tag.textContent = labelInfo.label + " risk";
   tag.className = "risk-tag " + labelInfo.css;
 
-  document.getElementById("httpsMeta").innerText =
-    urlInfo.valid ? (urlInfo.https ? "HTTPS in use" : "No HTTPS detected") : "Unparseable URL";
-
-  document.getElementById("domainMeta").innerText =
-    "Domain: " + (urlInfo.host || "–");
+  document.getElementById("httpsMeta").innerText = urlInfo.valid ? (urlInfo.https ? "HTTPS in use" : "No HTTPS detected") : "Unparseable URL";
+  document.getElementById("domainMeta").innerText = "Domain: " + (urlInfo.host || "–");
 
   const structBits = [];
   if (urlInfo.length > 120) structBits.push("very long URL");
@@ -1406,12 +1220,12 @@ document.getElementById("scanBtn").addEventListener("click", function () {
   document.getElementById("detailsText").innerHTML = buildDetailsText(urlInfo, htmlInfo, scores).replace(/\n/g, "<br>");
   document.getElementById("actionsText").innerHTML = buildActionsText(totalScore).replace(/\n/g, "<br>");
 
-  document.getElementById("credMeter").style.width = (isNaN(scores.credential) ? 0 : scores.credential) + "%";
-  document.getElementById("finMeter").style.width = (isNaN(scores.financial) ? 0 : scores.financial) + "%";
-  document.getElementById("malMeter").style.width = (isNaN(scores.malware) ? 0 : scores.malware) + "%";
-  document.getElementById("credValue").innerText = isNaN(scores.credential) ? "–" : scores.credential;
-  document.getElementById("finValue").innerText = isNaN(scores.financial) ? "–" : scores.financial;
-  document.getElementById("malValue").innerText = isNaN(scores.malware) ? "–" : scores.malware;
+  document.getElementById("credMeter").style.width = scores.credential + "%";
+  document.getElementById("finMeter").style.width = scores.financial + "%";
+  document.getElementById("malMeter").style.width = scores.malware + "%";
+  document.getElementById("credValue").innerText = scores.credential;
+  document.getElementById("finValue").innerText = scores.financial;
+  document.getElementById("malValue").innerText = scores.malware;
 
   const history = loadHistory();
   history.unshift({
@@ -1426,6 +1240,5 @@ document.getElementById("scanBtn").addEventListener("click", function () {
   renderHistory();
 });
 </script>
-
 </body>
 </html>
